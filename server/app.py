@@ -84,12 +84,12 @@ def messages_by_id(id):
 
         return response
     elif request.method == 'DELETE':
-        db.session.delete(review)
+        db.session.delete(message)
         db.session.commit()
 
         response_body = {
             "delete_successful": True,
-            "message": "Review deleted."
+            "message": "Message deleted."
         }
 
         response = make_response(
