@@ -55,7 +55,7 @@ def messages():
 
 
 
-@app.route('/messages/<int:id>', methods=['GET', 'PATCH'])
+@app.route('/messages/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def messages_by_id(id):
     
     if request.method == 'GET':
@@ -83,6 +83,22 @@ def messages_by_id(id):
         )
 
         return response
+    elif request.method == 'DELETE':
+        db.session.delete(review)
+        db.session.commit()
+
+        response_body = {
+            "delete_successful": True,
+            "message": "Review deleted."
+        }
+
+        response = make_response(
+            response_body,
+            200
+        )
+
+        return response
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
